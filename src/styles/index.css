@@ -1,0 +1,243 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=Bellefair&family=Manrope:wght@200;500;800&family=Poppins:wght@400;700;800;900&display=swap');
+:root{
+    /* colors */
+    --clr-dark: 230 35% 7%;
+    --clr-light: 231 77% 90%;
+    --clr-white: 0 0% 100%;
+    --clr-black: rgb(0, 0, 0);
+    --clr-gray-900: rgb(51, 51, 51); 
+    --clr-gray-800: rgb(73, 73, 73); 
+    --clr-gray-700: rgb(102, 102, 102); 
+    --clr-gray-600: rgb(131, 131, 131); 
+    --clr-gray-500: rgb(177, 177, 177); 
+    --clr-gray-400: rgb(202, 202, 202); 
+    --clr-gray-300: rgb(240, 240, 240); 
+    --clr-dark-text: #2c3e50;
+    --clr-light-text: #42b983;
+    --clr-primary-light: #58ffb4;
+
+    --clr-bright-red: rgb(255,0,0);
+    --clr-dull-red: rgb(150,0,0);
+    --clr-bright-green: rgb(0,255,0);
+    --clr-dull-green: rgb(0,150,0);
+
+    /* font sizes*/
+
+    --font-900: 5rem;
+    --font-800: 3.5rem;
+    --font-700: 1.5rem;
+    --font-600: 1rem;
+    --font-500: 0.875rem;
+    --font-400: 0.75rem;
+    --font-300: 0.675rem;
+    --font-200: 0.5rem;
+
+    /* font-families */
+    --ff-serif: "Bellefair", serif;
+    --ff-sans-cond: "Barlow Condensed",sans-serif;
+    --ff-sans-normal: "Barlow", sans-serif;
+}
+
+/* box sizing */
+*,
+*:before,
+*::after{
+    box-sizing: border-box;
+}
+
+/* reset margins */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+br,
+span,
+figure,
+picture {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-weight: 400;
+}
+
+/* set up the body */
+body{
+    font-family: var(--ff-sans-normal);
+    font-size: var(--font-400);
+    background-color: hsl(var(--clr-light));
+    line-height: 1.5;
+}
+/* make images to work with */
+img,
+picture{
+    max-width: 100%;
+    display: block;
+}
+
+/* make forms easier to work with */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* remove animations for people who,ve turned them off */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.0ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* utility classes */
+.flex {
+    display: flex;
+    gap: var(--gap, 1rem);
+}
+
+.grid {
+    display: grid;
+    gap: var(--gap, 1rem);
+}
+
+.flow > * + * {
+    margin-top: var(--flow-space, 1rem);
+    /* outline: 1px solid red; */
+}
+
+.container {
+    padding-inline: 2em;
+    margin-inline: auto;
+    max-width: 80rem;
+}
+.grid-container {
+    display: grid;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+@media (min-width: 45em) {
+    .grid-container {
+        column-gap: var(--container-gap, 2rem);
+        grid-template-columns: minmax(2rem, 1fr) minmax(0, 40rem) minmax(0, 40rem) minmax(2rem, 1fr);
+    }
+   
+    
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* colors */
+
+.bg-dark{
+    background-color: hsl(var(--clr-dark));
+}
+.bg-light{
+    background-color: hsl(var(--clr-light));
+}
+.bg-white{
+    background-color: hsl(var(--clr-white));
+}
+.text-dark{
+    color: hsl(var(--clr-dark));
+}
+.text-light{
+    color: hsl(var(--clr-light));
+}
+.text-white{
+    color: hsl(var(--clr-white));
+}
+.bg-bright-green{
+    color: hsl(var(--clr-bright-green));
+}
+.bg-bright-red{
+    color: hsl(var(--clr-bright-red));
+}
+.bg-dull-red{
+    color: hsl(var(--clr-dull-red));
+}
+.bg-dull-green{
+    color: hsl(var(--clr-dull-green));
+}
+
+/* topography */
+ 
+.ff-serif{ font-family: var(--ff-serif);}
+.ff-sans-cond{ font-family: var(--ff-sans-cond);}
+.ff-sans-normal{ font-family: var(--ff-sans-normal);}
+
+.letter-spacing-1 { letter-spacing: 4.75px; }
+.letter-spacing-2 { letter-spacing: 2.7px; }
+.letter-spacing-3 { letter-spacing: 2.35px; }
+
+.uppercase{ text-transform: uppercase; }
+
+.fs-900 { font-size: var(--font-900); }
+.fs-800 { font-size: var(--font-800); }
+.fs-700 { font-size: var(--font-700); }
+.fs-600 { font-size: var(--font-600); }
+.fs-500 { font-size: var(--font-500); }
+.fs-400 { font-size: var(--font-400); }
+.fs-300 { font-size: var(--font-300); }
+.fs-200 { font-size: var(--font-200); }
+
+.fs-900,
+.fs-800,
+.fs-700,
+.fs-600 {
+    line-height: 1.1;
+}
+
+@media (min-width: 35em) {
+    :root {
+        --font-900: clamp(5rem, 8vw + 1rem,9.375rem);
+        --font-700: 2.5rem;
+        --font-600: 1.5rem;
+        --font-500: 1.25rem;
+        --font-400: 1rem;
+        --font-300: 0.9rem;
+        --font-200: 0.875rem;
+    }
+}
+
+@media (min-width: 45em) {
+    :root {
+        --font-800: 6.25rem;
+        --font-700: 3.5rem;
+        --font-600: 2rem;
+        --font-500: 1.5rem;
+        --font-400: 1.125rem;
+        --font-300: 1rem;
+    }
+}
+
+
+
+
+
+
+ 

@@ -1,7 +1,7 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Главная</router-link> |
+    <router-link to="/posts">Новости</router-link>
   </nav>
   <router-view/>
 </template>
@@ -26,5 +26,16 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+button {
+  border: 1px dotted black;
+  border-radius: 0.75rem;
+  height: 3rem;
+  width:10rem;
+  background: white;
+}
+button:hover {
+  background: #e7e7e7;
+  cursor: pointer;
 }
 </style>
