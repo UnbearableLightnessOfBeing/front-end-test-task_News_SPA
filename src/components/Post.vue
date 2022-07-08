@@ -5,10 +5,10 @@
         <div><strong>Ссылка: </strong>{{post.link}}</div>
         <div><strong>Заголовок: </strong>{{post.title}}</div>
         <div><strong>Описание: </strong>{{post.overview}}</div>
-        <div><strong>Текст: </strong>{{getSnippet}}</div>
+        <div><strong>Текст: </strong>{{post.text}}</div>
         <div><strong>Рейтинг: </strong>{{post.rating}}     
-        <strong class="points fs-500" v-if="(previousRating - prepreviousRating) >= 0 && ((previousRating - prepreviousRating) != previousRating)">   +</strong>
-        <strong class="points fs-500" v-if="(previousRating - prepreviousRating) != previousRating">{{previousRating - prepreviousRating}}</strong></div>
+        <strong class="points fs-500" v-if="(storedRating - previousRating) >= 0 && ((storedRating - previousRating) != storedRating)">   +</strong>
+        <strong class="points fs-500" v-if="(storedRating - previousRating) != storedRating">{{storedRating - previousRating}}</strong></div>
       </div>
       <div class="right flex">
          <button class="btn top" @click="removePost">
@@ -31,8 +31,8 @@ export default {
             ratingRaised: false,
             ratingFell: false,
             faded: false,
-            previousRating: null,
-            prepreviousRating:null
+            storedRating: null,
+            previousRating:null
         }
     },
     computed: {
@@ -53,24 +53,24 @@ export default {
     watch: {
         rating(){
              this.faded = false;
-            if(this.previousRating < this.post.rating){
+            if(this.storedRating < this.post.rating){
                 this.ratingFell = false;
                 this.ratingRaised = true;
             }
-            else if(this.previousRating > this.post.rating){
+            else if(this.storedRating > this.post.rating){
                 this.ratingRaised = false;
                 this.ratingFell = true;
             }
-            this.prepreviousRating = this.previousRating
-            this.previousRating = this.post.rating;
+            this.previousRating = this.storedRating
+            this.storedRating = this.post.rating;
             setTimeout(() => {
                 this.faded = true;
             }, 3000);
         }
     },
     mounted() {
-        // this.prepreviousRating = this.previousRating
-        this.previousRating = this.post.rating;
+        // this.previousRating = this.storedRating
+        this.storedRating = this.post.rating;
     }
 }
 </script>

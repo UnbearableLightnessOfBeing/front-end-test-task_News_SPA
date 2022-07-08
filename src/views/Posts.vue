@@ -41,15 +41,10 @@ export default {
 
   mounted() {
     // this.fetchPosts();
-    // this.deletedPosts = sessionStorage.getItem('deletedPosts') ? sessionStorage.getItem('deletedPosts') : [];
     if(sessionStorage.getItem('deletedPosts')){
       this.deletedPosts = JSON.parse(sessionStorage.getItem('deletedPosts'));
       sessionStorage.removeItem('deletedPosts');
     }
-    // this.page = sessionStorage.getItem('page') ? sessionStorage.getItem('page') : 0;
-    // sessionStorage.removeItem('page');
-    // this.totalPages = sessionStorage.getItem('totalPages') ? sessionStorage.getItem('totalPages') : 0;
-    // sessionStorage.removeItem('totalPages');
     console.log(this.deletedPosts);
     this.refreshData(this.fetchPosts);
   },
@@ -57,25 +52,15 @@ export default {
   unmounted(){
     clearInterval(this.intervalID);
     sessionStorage.setItem('deletedPosts', JSON.stringify(this.deletedPosts));
-    // sessionStorage.setItem('page', this.page);
-    // sessionStorage.setItem('totalPages', this.totalPages);
   },
   computed: {
     postsToSee(){
-      // return this.posts.filter(post => {
-      //   for(let i = 0; i < this.deletedPosts.length; i++){
-      //     if(post.title == this.deletedPosts[i]){
-      //       return false;
-      //     }
-      //   }
-      //   return true;
-      // });
-      return this.checkForDeleted(this.posts);
+      return this.excludeDeletedPosts(this.posts);
     }
   },
 
   methods: {
-    checkForDeleted(array){
+    excludeDeletedPosts(array){
       return array.filter(post => {
         for(let i = 0; i < this.deletedPosts.length; i++){
           if(post.title == this.deletedPosts[i]){
@@ -91,12 +76,11 @@ export default {
           if(!this.postsAreAdditionallyLoading){
             this.postsAreLoading = true;
             const response = await axios.get('http://localhost/WebScraping/api/posts');
-            console.log(response.data);
-            // this.totalPages = Math.ceil(response.data.length / this.limit);
-            const checkedArray = this.checkForDeleted(response.data);
-            console.log(checkedArray);
+            // console.log(response.data);
+            const checkedArray = this.excludeDeletedPosts(response.data);
+            // console.log(checkedArray);
             this.posts = checkedArray.slice(0, this.page * this.limit);
-            this.totalPages = Math.ceil(this.postsToSee.length / this.limit);
+            this.totalPages = Math.ceil(checkedArray.length / this.limit);
             this.postsAreLoading = false;
           }
          
@@ -110,7 +94,6 @@ export default {
     },
     removePost(post){
         this.deletedPosts.push(post.title);
-        console.log(this.deletedPosts);
     },
     loadMorePosts: async function(){
        try {
@@ -119,13 +102,10 @@ export default {
             this.postsAreAdditionallyLoading = true;
             this.page++;
             const response = await axios.get('http://localhost/WebScraping/api/posts');
-            // console.log(response.data);
-            const checkedArray = this.checkForDeleted(response.data);
+            const checkedArray = this.excludeDeletedPosts(response.data);
             this.totalPages = Math.ceil(checkedArray.length / this.limit);
-            // this.totalPages = Math.ceil(this.postsToSee.length / this.limit);
-            const newRequests = checkedArray.slice(this.page * this.limit - this.limit, this.page * this.limit);
-            this.posts = [...this.posts, ...newRequests];
-            
+            const newPosts = checkedArray.slice(this.page * this.limit - this.limit, this.page * this.limit);
+            this.posts = [...this.posts, ...newPosts];
             this.postsAreLoading = false;
             this.postsAreAdditionallyLoading = false;
           }
