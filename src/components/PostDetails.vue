@@ -40,8 +40,8 @@ export default {
             try {
                 this.postsAreLoading = true;
                 const response = await axios.get(`${this.link}`);
-                // console.log(response.data);
-                this.post = response.data;
+                // console.log(response.data[0].text);
+                this.post = response.data[0];
             } catch (error) {
                 alert(error);
             }

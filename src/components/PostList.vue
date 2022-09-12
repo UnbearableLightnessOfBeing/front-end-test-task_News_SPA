@@ -3,7 +3,7 @@
   <TransitionGroup name="postsList">
     <div class="postlist">
         <TransitionGroup name="postsList" tag="ul">
-            <Post v-for="post in posts" :key="post.link" :post="post" @remove="removePost"></Post>
+            <Post v-for="post in posts" :key="post.link" :post="post" @remove="removePost" @pageIntersected="pageIntersected"></Post>
         </TransitionGroup>
     </div>
   </TransitionGroup>
@@ -20,6 +20,9 @@ components: {Post},
 methods: {
     removePost(post){
         this.$emit('remove', post);
+    },
+    pageIntersected(currentPage){
+      this.$emit('pageIntersected', currentPage);
     }
 }
 

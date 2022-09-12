@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <h1 class="fs-900">Тестовое задание</h1>
+    <h1 class="fs-900">Новостные посты</h1>
   </div>
 </template>
 

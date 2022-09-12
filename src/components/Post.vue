@@ -9,6 +9,9 @@
         <div><strong>Рейтинг: </strong>{{post.rating}}     
         <strong class="points fs-500" v-if="(storedRating - previousRating) >= 0 && ((storedRating - previousRating) != storedRating)">   +</strong>
         <strong class="points fs-500" v-if="(storedRating - previousRating) != storedRating">{{storedRating - previousRating}}</strong></div>
+        <div class="page-indicator" v-if="postPosition % 3 == 0">
+            <div  v-page-intersection="pageAlert"></div>
+        </div>
       </div>
       <div class="right flex">
          <button class="btn top" @click="removePost">
@@ -32,7 +35,8 @@ export default {
             ratingFell: false,
             faded: false,
             storedRating: null,
-            previousRating:null
+            previousRating:null,
+            postPosition: null
         }
     },
     computed: {
@@ -48,6 +52,11 @@ export default {
     methods: {
         removePost(){
             this.$emit('remove', this.post);
+        },
+        pageAlert(){
+            // console.log('page '+ this.postPosition / 3 + ' intersected');
+            console.log( Math.ceil(this.postPosition / 3));
+            this.$emit('pageIntersected', Math.ceil(this.postPosition / 3));
         }
     },
     watch: {
@@ -71,6 +80,7 @@ export default {
     mounted() {
         // this.previousRating = this.storedRating
         this.storedRating = this.post.rating;
+        this.postPosition = this.post.link.substring(39);
     }
 }
 </script>
@@ -146,5 +156,11 @@ a{
 
 .points{
     opacity: 0.5;
+}
+
+.page-indicator {
+    height: 1px;
+    background: black;
+    margin:0;
 }
 </style>
